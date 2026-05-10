@@ -1,9 +1,7 @@
-import { Outlet, Link, createRootRoute, HeadContent, Scripts } from "@tanstack/react-router";
+import { Outlet, Link, createRootRoute } from "@tanstack/react-router";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { SidebarProvider } from "@/lib/sidebarContext";
 import { AuthProvider } from "@/lib/authContext";
-
-import appCss from "../styles.css?url";
 
 const queryClient = new QueryClient();
 
@@ -30,57 +28,9 @@ function NotFoundComponent() {
 }
 
 export const Route = createRootRoute({
-  head: () => ({
-    meta: [
-      { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Sentivoy" },
-      {
-        name: "description",
-        content:
-          "AI-Powered Cybersecurity Command Center — Detect, Predict & Respond to Threats in Real Time",
-      },
-      { name: "author", content: "Sentivoy" },
-      { property: "og:title", content: "Sentivoy" },
-      {
-        property: "og:description",
-        content:
-          "AI-Powered Cybersecurity Command Center — Detect, Predict & Respond to Threats in Real Time",
-      },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary" },
-      { name: "twitter:site", content: "@Sentivoy" },
-    ],
-    links: [
-      {
-        rel: "stylesheet",
-        href: appCss,
-      },
-      {
-        rel: "icon",
-        type: "image/png",
-        href: "/favicon.png",
-      },
-    ],
-  }),
-  shellComponent: RootShell,
   component: RootComponent,
   notFoundComponent: NotFoundComponent,
 });
-
-function RootShell({ children }: { children: React.ReactNode }) {
-  return (
-    <html lang="en">
-      <head>
-        <HeadContent />
-      </head>
-      <body>
-        {children}
-        <Scripts />
-      </body>
-    </html>
-  );
-}
 
 function RootComponent() {
   return (

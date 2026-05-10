@@ -1,7 +1,15 @@
-// Disable the Cloudflare Workers plugin so the build produces
-// a standard Node.js SSR output that Vercel can serve.
-import { defineConfig } from "@lovable.dev/vite-tanstack-config";
+import { defineConfig } from "vite";
+import react from "@vitejs/plugin-react";
+import tailwindcss from "@tailwindcss/vite";
+import tsconfigPaths from "vite-tsconfig-paths";
+import { TanStackRouterVite } from "@tanstack/router-plugin/vite";
 
 export default defineConfig({
-  cloudflare: false,
+  plugins: [TanStackRouterVite({ autoCodeSplitting: true }), react(), tailwindcss(), tsconfigPaths()],
+  resolve: {
+    dedupe: ["react", "react-dom", "react/jsx-runtime", "react/jsx-dev-runtime"],
+  },
+  build: {
+    chunkSizeWarningLimit: 600,
+  },
 });
