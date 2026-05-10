@@ -1,6 +1,8 @@
 # Sentivoy 🛡️
 **AI-Powered Security Intelligence Platform**
 
+🌍 **Live Deployment:** [https://sentivoy-p7r0svy8w-hemusolanki244-1459s-projects.vercel.app](https://sentivoy-p7r0svy8w-hemusolanki244-1459s-projects.vercel.app)
+
 Sentivoy is a real-time security intelligence platform that monitors application and server logs to identify threats. By combining PyTorch-based anomaly detection with an agentic decision layer, Sentivoy moves beyond simple pattern matching to provide context-aware security reasoning.
 
 ## 🚀 Features
