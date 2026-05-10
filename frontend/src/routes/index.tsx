@@ -4,7 +4,7 @@
  * Usage: import SentivoyLanding from './SentivoyLanding'
  */
 import { useState, useEffect, useRef } from "react";
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import * as THREE from "three";
 import {
   Shield,
@@ -352,6 +352,12 @@ const STYLES = `
     .hero-headline { font-size: 28px !important; }
     .dashboard-grid { flex-direction: column !important; }
   }
+  @media (max-width: 768px) {
+    .hide-mobile { display: none !important; }
+  }
+  @media (max-width: 520px) {
+    .hide-tiny { display: none !important; }
+  }
 `;
 
 /* ─────────────────────────────────────────────────────────────────
@@ -387,9 +393,17 @@ function GlobeVisualization() {
     const camera = new THREE.PerspectiveCamera(40, W / H, 0.1, 1000);
     camera.position.z = 3.4;
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    let renderer;
+    try {
+      renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    } catch (e) {
+      console.warn("WebGL not supported:", e);
+      return;
+    }
     renderer.setSize(W, H);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setPixelRatio(
+      typeof window !== "undefined" ? Math.min(window.devicePixelRatio, 2) : 1,
+    );
     renderer.setClearColor(0x000000, 0);
     renderer.domElement.style.border = "none";
     renderer.domElement.style.outline = "none";
@@ -779,6 +793,16 @@ function PhoneMockup({ variant = "alerts" }: { variant?: "alerts" | "map" }) {
    MAIN LANDING PAGE
 ───────────────────────────────────────────────────────────────── */
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "Sentivoy — AI-Powered Cybersecurity Platform" },
+      {
+        name: "description",
+        content:
+          "Monitor, detect, and respond to threats in real time using AI and behavioural analytics.",
+      },
+    ],
+  }),
   component: SentivoyLanding,
 });
 
@@ -900,7 +924,10 @@ function SentivoyLanding() {
           }}
         >
           {/* Logo */}
-          <div style={{ display: "flex", alignItems: "center", gap: 8, textDecoration: "none" }}>
+          <Link
+            to="/"
+            style={{ display: "flex", alignItems: "center", gap: 8, textDecoration: "none" }}
+          >
             <img
               src="/favicon.png"
               alt="Sentivoy"
@@ -909,17 +936,12 @@ function SentivoyLanding() {
             <span style={{ fontWeight: 800, fontSize: 17, color: C.navy, letterSpacing: "-.02em" }}>
               Sentivoy
             </span>
-          </div>
+          </Link>
 
           {/* Nav links */}
           <nav style={{ display: "flex", gap: 28, alignItems: "center" }}>
             {navLinks.map((l) => (
-              <a
-                key={l.id}
-                href={`#${l.id}`}
-                className="nav-link"
-                style={{ display: typeof window !== "undefined" && window.innerWidth < 768 ? "none" : "block" }}
-              >
+              <a key={l.id} href={`#${l.id}`} className="nav-link hide-mobile">
                 {l.label}
               </a>
             ))}
@@ -927,13 +949,9 @@ function SentivoyLanding() {
 
           {/* CTA */}
           <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-            <a
-              onClick={() => navigate({ to: "/auth" })}
-              className="nav-link"
-              style={{ display: typeof window !== "undefined" && window.innerWidth < 520 ? "none" : "block" }}
-            >
+            <Link to="/auth" className="nav-link hide-tiny">
               Sign in
-            </a>
+            </Link>
             <button onClick={() => navigate({ to: "/auth" })} className="btn-primary">
               Get Started
             </button>
