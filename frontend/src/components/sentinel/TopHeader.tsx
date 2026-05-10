@@ -58,7 +58,9 @@ export function TopHeader() {
                 onClick={() => setRange(r)}
                 className={cn(
                   "px-2.5 h-7 text-xs font-medium rounded-md flex items-center gap-1 transition",
-                  range === r ? "bg-card text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground",
+                  range === r
+                    ? "bg-card text-foreground shadow-sm"
+                    : "text-muted-foreground hover:text-foreground",
                 )}
               >
                 {r === "Custom" && <Calendar className="h-3 w-3" />}

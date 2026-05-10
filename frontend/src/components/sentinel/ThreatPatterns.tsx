@@ -24,7 +24,11 @@ export function ThreatPatterns({ data }: ThreatPatternsProps) {
 
       <div className="flex-1 min-h-[240px] mt-4 -ml-2">
         <ResponsiveContainer width="100%" height="100%">
-          <BarChart data={chartData} layout="vertical" margin={{ left: 8, right: 16, top: 4, bottom: 0 }}>
+          <BarChart
+            data={chartData}
+            layout="vertical"
+            margin={{ left: 8, right: 16, top: 4, bottom: 0 }}
+          >
             <XAxis type="number" hide />
             <YAxis
               type="category"

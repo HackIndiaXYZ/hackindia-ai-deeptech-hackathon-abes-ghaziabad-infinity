@@ -35,10 +35,18 @@ export const Route = createRootRoute({
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       { title: "Sentivoy" },
-      { name: "description", content: "AI-Powered Cybersecurity Command Center — Detect, Predict & Respond to Threats in Real Time" },
+      {
+        name: "description",
+        content:
+          "AI-Powered Cybersecurity Command Center — Detect, Predict & Respond to Threats in Real Time",
+      },
       { name: "author", content: "Sentivoy" },
       { property: "og:title", content: "Sentivoy" },
-      { property: "og:description", content: "AI-Powered Cybersecurity Command Center — Detect, Predict & Respond to Threats in Real Time" },
+      {
+        property: "og:description",
+        content:
+          "AI-Powered Cybersecurity Command Center — Detect, Predict & Respond to Threats in Real Time",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Sentivoy" },

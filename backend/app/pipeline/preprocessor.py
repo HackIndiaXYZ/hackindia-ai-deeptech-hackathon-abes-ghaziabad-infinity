@@ -47,20 +47,12 @@ def extract_features(log: LogEntry, log_id: str) -> FeatureVector:
     """
     Query historical data for this user and extract the 6 features.
     """
-    supabase = get_supabase()
-    
-    # Time windows
     now = log.timestamp
-    one_hour_ago = now - timedelta(hours=1)
-    five_mins_ago = now - timedelta(minutes=5)
-    
-    # In production, we'd use a more optimized SQL RPC or aggregation,
-    # but for this architecture we'll fetch the last hour of events for the user.
-    # Note: supabase-py handles timestamp formats as ISO strings.
-    one_hour_iso = one_hour_ago.isoformat()
-    
-    # We use `.execute()` in python supabase v2+
+
     try:
+        supabase = get_supabase()
+        one_hour_ago = now - timedelta(hours=1)
+        one_hour_iso = one_hour_ago.isoformat()
         response = supabase.table("logs").select("*").eq("user_id", log.user_id).gte("timestamp", one_hour_iso).order("timestamp", desc=True).execute()
         history = response.data
     except Exception as e:

@@ -7,7 +7,10 @@ export const Route = createFileRoute("/incident-response")({
   head: () => ({
     meta: [
       { title: "Incident Response — Sentivoy" },
-      { name: "description", content: "Coordinate incident response with playbooks and timelines." },
+      {
+        name: "description",
+        content: "Coordinate incident response with playbooks and timelines.",
+      },
     ],
   }),
   component: IncidentPage,
@@ -36,7 +39,7 @@ import { useDashboardData } from "@/hooks/useDashboardData";
 
 function IncidentPage() {
   const { data: dashboardData } = useDashboardData();
-  
+
   // Derive simple incidents from the latest alerts
   const derivedIncidents = (dashboardData?.alerts || []).slice(0, 5).map((a) => {
     const isClosed = a.status === "Resolved";
@@ -63,15 +66,30 @@ function IncidentPage() {
     >
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {(() => {
-          const activeCount = derivedIncidents.filter(i => i.status === "active").length;
-          const closedCount = derivedIncidents.filter(i => i.status === "closed").length;
+          const activeCount = derivedIncidents.filter((i) => i.status === "active").length;
+          const closedCount = derivedIncidents.filter((i) => i.status === "closed").length;
           const totalAlerts = dashboardData?.alerts?.length || 0;
 
           const cards = [
-            { label: "Active Incidents", value: String(activeCount), icon: AlertCircle, tone: "critical" as const },
-            { label: "Total Alerts", value: String(totalAlerts), icon: Clock, tone: "default" as const },
+            {
+              label: "Active Incidents",
+              value: String(activeCount),
+              icon: AlertCircle,
+              tone: "critical" as const,
+            },
+            {
+              label: "Total Alerts",
+              value: String(totalAlerts),
+              icon: Clock,
+              tone: "default" as const,
+            },
             { label: "On-call", value: "—", icon: Users, tone: "default" as const },
-            { label: "Resolved", value: String(closedCount), icon: CheckCircle2, tone: "success" as const },
+            {
+              label: "Resolved",
+              value: String(closedCount),
+              icon: CheckCircle2,
+              tone: "success" as const,
+            },
           ];
 
           return cards.map((s) => {
@@ -82,11 +100,16 @@ function IncidentPage() {
               success: "bg-success/10 text-success",
             }[s.tone];
             return (
-              <div key={s.label} className="card-hover bg-card border border-border rounded-2xl p-5 shadow-[var(--shadow-soft)]">
+              <div
+                key={s.label}
+                className="card-hover bg-card border border-border rounded-2xl p-5 shadow-[var(--shadow-soft)]"
+              >
                 <div className={cn("h-9 w-9 rounded-xl grid place-items-center", tone)}>
                   <Icon className="h-4 w-4" />
                 </div>
-                <div className="mt-4 text-[26px] font-semibold tracking-tight text-foreground tabular-nums">{s.value}</div>
+                <div className="mt-4 text-[26px] font-semibold tracking-tight text-foreground tabular-nums">
+                  {s.value}
+                </div>
                 <div className="text-[12.5px] text-muted-foreground mt-1">{s.label}</div>
               </div>
             );
@@ -102,18 +125,38 @@ function IncidentPage() {
           </div>
           <div className="divide-y divide-border">
             {derivedIncidents.length === 0 && (
-              <div className="p-8 text-center text-sm text-muted-foreground">No incidents currently match alert constraints.</div>
+              <div className="p-8 text-center text-sm text-muted-foreground">
+                No incidents currently match alert constraints.
+              </div>
             )}
             {derivedIncidents.map((i) => (
-              <div key={i.id} className={cn("p-5 hover:bg-muted/40 transition cursor-pointer", i.severity === "Critical" && "border-l-2 border-l-critical")}>
+              <div
+                key={i.id}
+                className={cn(
+                  "p-5 hover:bg-muted/40 transition cursor-pointer",
+                  i.severity === "Critical" && "border-l-2 border-l-critical",
+                )}
+              >
                 <div className="flex items-start justify-between gap-4">
                   <div className="min-w-0">
                     <div className="flex items-center gap-2 flex-wrap">
-                      <span className="font-mono text-[11px] font-semibold text-primary">{i.id}</span>
-                      <span className={cn("text-[10px] font-semibold px-2 py-0.5 rounded-md", sevStyle[i.severity as keyof typeof sevStyle] || sevStyle.Medium)}>
+                      <span className="font-mono text-[11px] font-semibold text-primary">
+                        {i.id}
+                      </span>
+                      <span
+                        className={cn(
+                          "text-[10px] font-semibold px-2 py-0.5 rounded-md",
+                          sevStyle[i.severity as keyof typeof sevStyle] || sevStyle.Medium,
+                        )}
+                      >
                         {i.severity}
                       </span>
-                      <span className={cn("text-[10px] font-semibold capitalize px-2 py-0.5 rounded-md", statusStyle[i.status as keyof typeof statusStyle])}>
+                      <span
+                        className={cn(
+                          "text-[10px] font-semibold capitalize px-2 py-0.5 rounded-md",
+                          statusStyle[i.status as keyof typeof statusStyle],
+                        )}
+                      >
                         {i.status}
                       </span>
                     </div>
@@ -126,7 +169,9 @@ function IncidentPage() {
                   </div>
                   <div className="text-right shrink-0">
                     <div className="text-[11px] text-muted-foreground">Resolution</div>
-                    <div className="text-[18px] font-semibold tabular-nums text-foreground">{i.progress}%</div>
+                    <div className="text-[18px] font-semibold tabular-nums text-foreground">
+                      {i.progress}%
+                    </div>
                   </div>
                 </div>
                 <div className="mt-3 h-1.5 bg-muted rounded-full overflow-hidden">
@@ -134,7 +179,8 @@ function IncidentPage() {
                     className="h-full rounded-full transition-all"
                     style={{
                       width: `${i.progress}%`,
-                      background: i.progress === 100 ? "oklch(0.68 0.16 152)" : "oklch(0.58 0.19 260)",
+                      background:
+                        i.progress === 100 ? "oklch(0.68 0.16 152)" : "oklch(0.58 0.19 260)",
                     }}
                   />
                 </div>
@@ -150,7 +196,10 @@ function IncidentPage() {
           </div>
           <div className="divide-y divide-border">
             {playbooks.map((p) => (
-              <div key={p.name} className="p-4 flex items-center justify-between gap-3 hover:bg-muted/40 transition">
+              <div
+                key={p.name}
+                className="p-4 flex items-center justify-between gap-3 hover:bg-muted/40 transition"
+              >
                 <div className="min-w-0">
                   <div className="text-[13px] font-medium text-foreground truncate">{p.name}</div>
                   <div className="text-[10.5px] text-muted-foreground">{p.steps} steps</div>

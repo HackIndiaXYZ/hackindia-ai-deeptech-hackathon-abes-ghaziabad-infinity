@@ -15,10 +15,14 @@ export function AlertDrawer({ alert, onClose }: Props) {
         {alert && (
           <>
             <SheetHeader>
-              <div className={cn(
-                "inline-flex items-center gap-1.5 self-start text-[10.5px] font-semibold px-2 py-0.5 rounded-md mb-2",
-                alert.severity === "Critical" ? "bg-critical/10 text-critical" : "bg-warning/15 text-[oklch(0.5_0.13_60)]"
-              )}>
+              <div
+                className={cn(
+                  "inline-flex items-center gap-1.5 self-start text-[10.5px] font-semibold px-2 py-0.5 rounded-md mb-2",
+                  alert.severity === "Critical"
+                    ? "bg-critical/10 text-critical"
+                    : "bg-warning/15 text-[oklch(0.5_0.13_60)]",
+                )}
+              >
                 <AlertTriangle className="h-3 w-3" />
                 {alert.severity} Severity
               </div>
@@ -38,8 +42,12 @@ export function AlertDrawer({ alert, onClose }: Props) {
                   ["Timestamp", new Date(alert.timestamp).toLocaleString()],
                 ].map(([k, v]) => (
                   <div key={k} className="rounded-lg bg-muted/50 p-3">
-                    <div className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold">{k}</div>
-                    <div className="text-[13px] text-foreground mt-0.5 font-medium break-all">{v}</div>
+                    <div className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold">
+                      {k}
+                    </div>
+                    <div className="text-[13px] text-foreground mt-0.5 font-medium break-all">
+                      {v}
+                    </div>
                   </div>
                 ))}
               </div>
@@ -49,7 +57,7 @@ export function AlertDrawer({ alert, onClose }: Props) {
                   Raw Log
                 </div>
                 <pre className="text-[11px] font-mono bg-[oklch(0.20_0.03_264)] text-[oklch(0.85_0.05_150)] p-3 rounded-lg overflow-x-auto scrollbar-thin">
-{alert.rawLog}
+                  {alert.rawLog}
                 </pre>
               </div>
 
@@ -63,7 +71,10 @@ export function AlertDrawer({ alert, onClose }: Props) {
                     { e: "New device fingerprint", t: "3m before" },
                     { e: "Geo-IP mismatch", t: "5m before" },
                   ].map((r, i) => (
-                    <div key={i} className="flex items-center justify-between text-[12px] p-2.5 rounded-lg border border-border">
+                    <div
+                      key={i}
+                      className="flex items-center justify-between text-[12px] p-2.5 rounded-lg border border-border"
+                    >
                       <span className="text-foreground">{r.e}</span>
                       <span className="text-muted-foreground">{r.t}</span>
                     </div>

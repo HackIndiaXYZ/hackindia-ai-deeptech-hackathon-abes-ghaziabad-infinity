@@ -31,24 +31,24 @@ export function useDashboardData() {
     queryKey: ["dashboardData"],
     queryFn: async () => {
       if (!session?.access_token) throw new Error("No session");
-      
+
       const res = await fetch(`${API_URL}/api/dashboard/summary`, {
         headers: {
-          Authorization: `Bearer ${session.access_token}`
-        }
+          Authorization: `Bearer ${session.access_token}`,
+        },
       });
-      
+
       if (!res.ok) {
         let errText = "Unknown error";
         try {
-            const errBody = await res.json();
-            errText = errBody.detail || JSON.stringify(errBody);
-        } catch(e) {
-            errText = await res.text();
+          const errBody = await res.json();
+          errText = errBody.detail || JSON.stringify(errBody);
+        } catch (e) {
+          errText = await res.text();
         }
         throw new Error(`Failed to fetch dashboard data (${res.status}): ${errText}`);
       }
-      
+
       return res.json();
     },
     enabled: !!session?.access_token,

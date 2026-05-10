@@ -1,6 +1,15 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { Database, AlertTriangle, ShieldAlert, Flame, Ban, Plus, Download, Mail } from "lucide-react";
+import {
+  Database,
+  AlertTriangle,
+  ShieldAlert,
+  Flame,
+  Ban,
+  Plus,
+  Download,
+  Mail,
+} from "lucide-react";
 import { AppSidebar } from "@/components/sentinel/AppSidebar";
 import { TopHeader } from "@/components/sentinel/TopHeader";
 import { MetricCard } from "@/components/sentinel/MetricCard";
@@ -20,9 +29,16 @@ export const Route = createFileRoute("/dashboard")({
   head: () => ({
     meta: [
       { title: "Dashboard — Sentivoy" },
-      { name: "description", content: "AI-powered cybersecurity command center for log anomaly detection, threat analytics, and incident response." },
+      {
+        name: "description",
+        content:
+          "AI-powered cybersecurity command center for log anomaly detection, threat analytics, and incident response.",
+      },
       { property: "og:title", content: "Sentivoy — AI Security Command Center" },
-      { property: "og:description", content: "Monitor anomalies, threats, and AI-driven security insights in real time." },
+      {
+        property: "og:description",
+        content: "Monitor anomalies, threats, and AI-driven security insights in real time.",
+      },
     ],
   }),
   component: DashboardPage,
@@ -33,7 +49,7 @@ function DashboardPage() {
   const navigate = useNavigate();
   const [selected, setSelected] = useState<AlertRow | null>(null);
   const [exporting, setExporting] = useState(false);
-  
+
   const { data: dashboardData, isLoading, error } = useDashboardData();
 
   // Redirect to login if not authenticated
@@ -85,7 +101,9 @@ function DashboardPage() {
           {/* Title row */}
           <div className="flex flex-wrap items-end justify-between gap-3">
             <div>
-              <h1 className="text-2xl font-semibold tracking-tight text-foreground">Security Overview</h1>
+              <h1 className="text-2xl font-semibold tracking-tight text-foreground">
+                Security Overview
+              </h1>
               <p className="text-sm text-muted-foreground mt-1">
                 Real-time anomaly detection across your environment.
               </p>
@@ -179,18 +197,17 @@ function DashboardPage() {
               icon={Flame}
               tone="critical"
             />
-            <MetricCard
-              label="Blocked IPs"
-              value={metrics.blocked}
-              icon={Ban}
-              tone="success"
-            />
+            <MetricCard label="Blocked IPs" value={metrics.blocked} icon={Ban} tone="success" />
           </div>
 
           {/* Trend + patterns */}
           <div className="grid grid-cols-1 xl:grid-cols-3 gap-4">
-            <div className="xl:col-span-2"><AnomalyTrend data={trend} /></div>
-            <div className="xl:col-span-1"><ThreatPatterns data={threatPatterns} /></div>
+            <div className="xl:col-span-2">
+              <AnomalyTrend data={trend} />
+            </div>
+            <div className="xl:col-span-1">
+              <ThreatPatterns data={threatPatterns} />
+            </div>
           </div>
 
           {/* Top Threat Patterns & Repeat Attack Rate */}
@@ -200,7 +217,11 @@ function DashboardPage() {
               <GeoThreatMap data={dashboardData.geoOrigins} />
             </div>
             <div>
-              <RepeatAttackRate value={metrics.threats > 0 ? Math.round((metrics.blocked / metrics.threats) * 100) : 0} />
+              <RepeatAttackRate
+                value={
+                  metrics.threats > 0 ? Math.round((metrics.blocked / metrics.threats) * 100) : 0
+                }
+              />
             </div>
           </div>
 

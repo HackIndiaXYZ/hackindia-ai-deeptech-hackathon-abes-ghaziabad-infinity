@@ -42,7 +42,7 @@ export function ApiKeyPanel() {
   const handleCreate = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!newKeyName.trim() || !session?.access_token) return;
-    
+
     setIsCreating(true);
     try {
       const res = await fetch(`${API_URL}/api/keys`, {
@@ -85,9 +85,11 @@ export function ApiKeyPanel() {
     <div className="bg-card border border-border rounded-2xl shadow-[var(--shadow-soft)] overflow-hidden">
       <div className="p-5 pb-3 border-b border-border">
         <div className="text-[15px] font-semibold text-foreground">API Keys</div>
-        <div className="text-xs text-muted-foreground mt-0.5">Programmatic access tokens for log ingestion</div>
+        <div className="text-xs text-muted-foreground mt-0.5">
+          Programmatic access tokens for log ingestion
+        </div>
       </div>
-      
+
       <div className="p-5 bg-muted/20 border-b border-border">
         <form onSubmit={handleCreate} className="flex gap-3">
           <input
@@ -98,8 +100,8 @@ export function ApiKeyPanel() {
             className="flex-1 h-9 px-3 rounded-lg border border-border bg-background text-[13px] placeholder:text-muted-foreground focus:outline-none focus:border-primary"
             required
           />
-          <button 
-            type="submit" 
+          <button
+            type="submit"
             disabled={isCreating}
             className="h-9 px-4 rounded-lg bg-primary text-primary-foreground text-[13px] font-semibold hover:opacity-90 disabled:opacity-50 transition"
           >
@@ -108,13 +110,17 @@ export function ApiKeyPanel() {
         </form>
         {justCreated && (
           <div className="mt-3 p-3 bg-success/10 border border-success/30 rounded-lg">
-            <div className="text-[13px] font-semibold text-success mb-1">Key Generated Successfully!</div>
-            <div className="text-[12px] text-muted-foreground mb-2">Please copy this key now. You will not be able to see it again.</div>
+            <div className="text-[13px] font-semibold text-success mb-1">
+              Key Generated Successfully!
+            </div>
+            <div className="text-[12px] text-muted-foreground mb-2">
+              Please copy this key now. You will not be able to see it again.
+            </div>
             <div className="flex items-center gap-2">
               <code className="flex-1 block p-2 bg-background border border-border rounded text-[12px] font-mono select-all">
                 {justCreated}
               </code>
-              <button 
+              <button
                 onClick={() => setJustCreated(null)}
                 className="h-8 px-3 rounded bg-muted hover:bg-muted/80 text-[12px] font-medium"
               >
@@ -129,7 +135,9 @@ export function ApiKeyPanel() {
         {loading ? (
           <div className="p-8 text-center text-[13px] text-muted-foreground">Loading keys...</div>
         ) : keys.length === 0 ? (
-          <div className="p-8 text-center text-[13px] text-muted-foreground">No active API keys found.</div>
+          <div className="p-8 text-center text-[13px] text-muted-foreground">
+            No active API keys found.
+          </div>
         ) : (
           keys.map((k) => (
             <div key={k.id} className="p-4 flex items-center justify-between text-[13px]">
@@ -142,7 +150,7 @@ export function ApiKeyPanel() {
                   Created {new Date(k.created_at).toLocaleDateString()}
                 </div>
               </div>
-              <button 
+              <button
                 onClick={() => handleRevoke(k.id)}
                 className="text-[12px] font-semibold text-critical hover:underline"
               >

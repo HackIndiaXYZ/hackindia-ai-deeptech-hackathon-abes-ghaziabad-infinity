@@ -47,7 +47,9 @@ function GeoPage() {
         <div className="bg-card border border-border rounded-2xl shadow-[var(--shadow-soft)] overflow-hidden">
           <div className="p-5 pb-3">
             <div className="text-[15px] font-semibold text-foreground">Country Breakdown</div>
-            <div className="text-xs text-muted-foreground mt-0.5">All flagged origins, last 24h</div>
+            <div className="text-xs text-muted-foreground mt-0.5">
+              All flagged origins, last 24h
+            </div>
           </div>
           <div className="px-2 pb-3 max-h-[420px] overflow-y-auto scrollbar-thin">
             {geoOrigins.map((o) => (
@@ -61,10 +63,14 @@ function GeoPage() {
                   </div>
                   <div>
                     <div className="text-[13px] text-foreground">{o.country}</div>
-                    <div className="text-[10.5px] text-muted-foreground capitalize">{o.intensity} intensity</div>
+                    <div className="text-[10.5px] text-muted-foreground capitalize">
+                      {o.intensity} intensity
+                    </div>
                   </div>
                 </div>
-                <div className="text-[13px] font-semibold text-foreground tabular-nums">{o.threats}</div>
+                <div className="text-[13px] font-semibold text-foreground tabular-nums">
+                  {o.threats}
+                </div>
               </div>
             ))}
           </div>
@@ -74,30 +80,52 @@ function GeoPage() {
       <div className="bg-card border border-border rounded-2xl shadow-[var(--shadow-soft)] overflow-hidden">
         <div className="p-5 pb-3">
           <div className="text-[15px] font-semibold text-foreground">Active Regions</div>
-          <div className="text-xs text-muted-foreground mt-0.5">Regions ranked by hostile traffic intensity</div>
+          <div className="text-xs text-muted-foreground mt-0.5">
+            Regions ranked by hostile traffic intensity
+          </div>
         </div>
         <table className="w-full text-[13px]">
           <thead>
             <tr className="text-left text-muted-foreground border-b border-border">
-              <th className="font-medium px-5 py-2.5 text-[11px] uppercase tracking-wider">Country Code</th>
-              <th className="font-medium px-3 py-2.5 text-[11px] uppercase tracking-wider">Country Name</th>
-              <th className="font-medium px-3 py-2.5 text-[11px] uppercase tracking-wider">Intensity</th>
-              <th className="font-medium px-5 py-2.5 text-[11px] uppercase tracking-wider">Detected Threats</th>
+              <th className="font-medium px-5 py-2.5 text-[11px] uppercase tracking-wider">
+                Country Code
+              </th>
+              <th className="font-medium px-3 py-2.5 text-[11px] uppercase tracking-wider">
+                Country Name
+              </th>
+              <th className="font-medium px-3 py-2.5 text-[11px] uppercase tracking-wider">
+                Intensity
+              </th>
+              <th className="font-medium px-5 py-2.5 text-[11px] uppercase tracking-wider">
+                Detected Threats
+              </th>
             </tr>
           </thead>
           <tbody>
-            {(geoOrigins || []).sort((a,b) => b.threats - a.threats).map((g) => (
-              <tr key={g.code} className="border-b border-border last:border-0 hover:bg-muted/40 transition">
-                <td className="px-5 py-3 font-mono text-primary font-semibold">{g.code}</td>
-                <td className="px-3 py-3 text-foreground">{g.country}</td>
-                <td className="px-3 py-3">
-                  <span className={cn("text-[10.5px] font-semibold capitalize px-2 py-0.5 rounded-md", repStyle[g.intensity as keyof typeof repStyle])}>
-                    {g.intensity}
-                  </span>
-                </td>
-                <td className="px-5 py-3 text-foreground tabular-nums font-semibold">{g.threats}</td>
-              </tr>
-            ))}
+            {(geoOrigins || [])
+              .sort((a, b) => b.threats - a.threats)
+              .map((g) => (
+                <tr
+                  key={g.code}
+                  className="border-b border-border last:border-0 hover:bg-muted/40 transition"
+                >
+                  <td className="px-5 py-3 font-mono text-primary font-semibold">{g.code}</td>
+                  <td className="px-3 py-3 text-foreground">{g.country}</td>
+                  <td className="px-3 py-3">
+                    <span
+                      className={cn(
+                        "text-[10.5px] font-semibold capitalize px-2 py-0.5 rounded-md",
+                        repStyle[g.intensity as keyof typeof repStyle],
+                      )}
+                    >
+                      {g.intensity}
+                    </span>
+                  </td>
+                  <td className="px-5 py-3 text-foreground tabular-nums font-semibold">
+                    {g.threats}
+                  </td>
+                </tr>
+              ))}
             {geoOrigins.length === 0 && (
               <tr>
                 <td colSpan={4} className="p-8 text-center text-sm text-muted-foreground">

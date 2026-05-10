@@ -20,12 +20,7 @@ import { Link, useLocation } from "@tanstack/react-router";
 import { cn } from "@/lib/utils";
 import { useSidebar } from "@/lib/sidebarContext";
 import { useAuth } from "@/lib/authContext";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { Sheet, SheetContent } from "@/components/ui/sheet";
 
 // ─── Data ────────────────────────────────────────────────────────────────────
@@ -62,9 +57,7 @@ const analyticsGroup: NavGroup = {
   ],
 };
 
-const bottomNav: NavItem[] = [
-  { to: "/settings", label: "Settings", icon: Settings },
-];
+const bottomNav: NavItem[] = [{ to: "/settings", label: "Settings", icon: Settings }];
 
 // ─── Expanded nav link (with label) ──────────────────────────────────────────
 
@@ -96,9 +89,7 @@ function NavLink({ item, pathname }: { item: NavItem; pathname: string }) {
         <span
           className={cn(
             "ml-auto text-[10.5px] font-bold tabular-nums min-w-[22px] text-center px-1.5 py-[1px] rounded-md",
-            active
-              ? "bg-white/20 text-primary-foreground"
-              : "bg-primary/10 text-primary",
+            active ? "bg-white/20 text-primary-foreground" : "bg-primary/10 text-primary",
           )}
         >
           {item.badge}
@@ -145,7 +136,7 @@ function CollapsedNavLink({ item, pathname }: { item: NavItem; pathname: string 
 
 function SidebarExpanded({ pathname, onClose }: { pathname: string; onClose?: () => void }) {
   const { signOut } = useAuth();
-  
+
   const [analyticsOpen, setAnalyticsOpen] = useState(() => {
     return analyticsGroup.children.some((c) => pathname.startsWith(c.to));
   });
@@ -240,11 +231,14 @@ function SidebarExpanded({ pathname, onClose }: { pathname: string; onClose?: ()
         ))}
 
         <button className="w-full flex items-center gap-3 px-3 py-[9px] rounded-xl text-[13.5px] font-medium text-sidebar-foreground/80 hover:text-sidebar-foreground hover:bg-muted/70 transition-all duration-150">
-          <HelpCircle className="h-[18px] w-[18px] text-muted-foreground shrink-0" strokeWidth={1.8} />
+          <HelpCircle
+            className="h-[18px] w-[18px] text-muted-foreground shrink-0"
+            strokeWidth={1.8}
+          />
           <span>Help &amp; Support</span>
         </button>
 
-        <button 
+        <button
           onClick={() => signOut()}
           className="w-full flex items-center gap-3 px-3 py-[9px] rounded-xl text-[13.5px] font-medium text-red-500 hover:text-red-400 hover:bg-red-500/10 transition-all duration-150 mb-4"
         >
@@ -252,8 +246,6 @@ function SidebarExpanded({ pathname, onClose }: { pathname: string; onClose?: ()
           <span>Sign Out</span>
         </button>
       </nav>
-
-
     </div>
   );
 }
@@ -302,10 +294,10 @@ function SidebarCollapsed({ pathname }: { pathname: string }) {
               Help &amp; Support
             </TooltipContent>
           </Tooltip>
-          
+
           <Tooltip delayDuration={0}>
             <TooltipTrigger asChild>
-              <button 
+              <button
                 onClick={() => signOut()}
                 className="flex items-center justify-center mt-2 h-10 w-10 rounded-xl text-red-500 hover:text-red-400 hover:bg-red-500/10 transition-all duration-150"
               >
@@ -317,8 +309,6 @@ function SidebarCollapsed({ pathname }: { pathname: string }) {
             </TooltipContent>
           </Tooltip>
         </nav>
-
-
       </div>
     </TooltipProvider>
   );

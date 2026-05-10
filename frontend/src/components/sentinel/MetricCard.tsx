@@ -32,7 +32,15 @@ function useCountUp(target: number, duration = 1000) {
   return val;
 }
 
-export function MetricCard({ label, value, delta, icon: Icon, tone = "default", format, suffix }: Props) {
+export function MetricCard({
+  label,
+  value,
+  delta,
+  icon: Icon,
+  tone = "default",
+  format,
+  suffix,
+}: Props) {
   const display = useCountUp(value);
   const hasDelta = delta !== undefined && delta !== null;
   const positive = hasDelta && delta >= 0;
@@ -65,7 +73,11 @@ export function MetricCard({ label, value, delta, icon: Icon, tone = "default", 
               goodDirection ? "text-success bg-success/10" : "text-critical bg-critical/10",
             )}
           >
-            {positive ? <ArrowUpRight className="h-3 w-3" /> : <ArrowDownRight className="h-3 w-3" />}
+            {positive ? (
+              <ArrowUpRight className="h-3 w-3" />
+            ) : (
+              <ArrowDownRight className="h-3 w-3" />
+            )}
             {Math.abs(delta).toFixed(1)}%
           </div>
         )}
@@ -73,11 +85,12 @@ export function MetricCard({ label, value, delta, icon: Icon, tone = "default", 
       <div className="mt-5">
         <div className="text-[28px] font-semibold tracking-tight tabular-nums leading-none text-foreground">
           {format ? format(display) : display.toLocaleString()}
-          {suffix && <span className="text-base text-muted-foreground font-medium ml-1">{suffix}</span>}
+          {suffix && (
+            <span className="text-base text-muted-foreground font-medium ml-1">{suffix}</span>
+          )}
         </div>
         <div className="mt-2 text-[12.5px] text-muted-foreground">{label}</div>
       </div>
     </motion.div>
   );
 }
-

@@ -3,6 +3,7 @@ Centralized application settings loaded from environment variables.
 """
 
 from pydantic_settings import BaseSettings
+from pydantic import field_validator
 from functools import lru_cache
 import os
 
@@ -34,6 +35,18 @@ class Settings(BaseSettings):
     resend_api_key: str = ""
     resend_from_email: str = "onboarding@resend.dev"
     alert_email_enabled: bool = True
+
+    @field_validator("debug", mode="before")
+    @classmethod
+    def parse_debug_value(cls, value):
+        """Accept deployment-style env values such as 'release' or 'production'."""
+        if isinstance(value, str):
+            normalized = value.strip().lower()
+            if normalized in {"release", "production", "prod"}:
+                return False
+            if normalized in {"development", "dev", "debug"}:
+                return True
+        return value
 
     model_config = {
         "env_file": os.path.join(os.path.dirname(__file__), "..", "..", ".env"),

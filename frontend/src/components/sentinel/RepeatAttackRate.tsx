@@ -15,7 +15,14 @@ export function RepeatAttackRate({ value = 68 }: { value?: number }) {
       <div className="flex-1 grid place-items-center my-2">
         <div className="relative h-[170px] w-[170px]">
           <svg className="w-full h-full -rotate-90" viewBox="0 0 160 160">
-            <circle cx="80" cy="80" r={radius} fill="none" stroke="oklch(0.94 0.01 255)" strokeWidth="14" />
+            <circle
+              cx="80"
+              cy="80"
+              r={radius}
+              fill="none"
+              stroke="oklch(0.94 0.01 255)"
+              strokeWidth="14"
+            />
             <motion.circle
               cx="80"
               cy="80"
@@ -39,7 +46,8 @@ export function RepeatAttackRate({ value = 68 }: { value?: number }) {
           <div className="absolute inset-0 grid place-items-center">
             <div className="text-center">
               <div className="text-[34px] font-semibold tracking-tight text-foreground tabular-nums leading-none">
-                {value}<span className="text-lg text-muted-foreground">%</span>
+                {value}
+                <span className="text-lg text-muted-foreground">%</span>
               </div>
               <div className="text-[10px] text-muted-foreground mt-1">flagged actors</div>
             </div>

@@ -67,17 +67,37 @@ function AlertsPage() {
     >
       {/* Severity overview */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {([
-          ["Critical", sevCounts.Critical, "bg-critical/10 text-critical", "border-critical/20"],
-          ["High", sevCounts.High, "bg-warning/15 text-[oklch(0.5_0.16_45)]", "border-warning/20"],
-          ["Medium", sevCounts.Medium, "bg-primary-soft text-primary", "border-primary/20"],
-          ["Low", sevCounts.Low, "bg-muted text-muted-foreground", "border-border"],
-        ] as const).map(([label, value, tone, border]) => (
-          <div key={label} className={cn("card-hover bg-card rounded-2xl border p-5 shadow-[var(--shadow-soft)]", border)}>
-            <div className={cn("inline-flex text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md", tone)}>
+        {(
+          [
+            ["Critical", sevCounts.Critical, "bg-critical/10 text-critical", "border-critical/20"],
+            [
+              "High",
+              sevCounts.High,
+              "bg-warning/15 text-[oklch(0.5_0.16_45)]",
+              "border-warning/20",
+            ],
+            ["Medium", sevCounts.Medium, "bg-primary-soft text-primary", "border-primary/20"],
+            ["Low", sevCounts.Low, "bg-muted text-muted-foreground", "border-border"],
+          ] as const
+        ).map(([label, value, tone, border]) => (
+          <div
+            key={label}
+            className={cn(
+              "card-hover bg-card rounded-2xl border p-5 shadow-[var(--shadow-soft)]",
+              border,
+            )}
+          >
+            <div
+              className={cn(
+                "inline-flex text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-md",
+                tone,
+              )}
+            >
               {label}
             </div>
-            <div className="mt-3 text-[28px] font-semibold tracking-tight tabular-nums text-foreground">{value}</div>
+            <div className="mt-3 text-[28px] font-semibold tracking-tight tabular-nums text-foreground">
+              {value}
+            </div>
             <div className="text-[11px] text-muted-foreground mt-0.5">total alerts</div>
           </div>
         ))}
@@ -91,7 +111,9 @@ function AlertsPage() {
             onClick={() => setTab(t)}
             className={cn(
               "px-3 h-8 text-[12px] font-semibold rounded-md transition flex items-center gap-1.5",
-              tab === t ? "bg-card text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground",
+              tab === t
+                ? "bg-card text-foreground shadow-sm"
+                : "text-muted-foreground hover:text-foreground",
             )}
           >
             {t}

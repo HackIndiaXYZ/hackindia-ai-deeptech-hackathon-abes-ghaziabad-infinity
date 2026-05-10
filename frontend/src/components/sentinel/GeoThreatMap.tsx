@@ -42,18 +42,24 @@ export function GeoThreatMap({ data }: GeoThreatMapProps) {
           <div className="text-xs text-muted-foreground mt-0.5">Live IP resolution, last 24h</div>
         </div>
         <div className="flex items-center gap-2 text-[10px] text-muted-foreground">
-          <span className="flex items-center gap-1"><span className="h-2 w-2 rounded-full bg-critical" />Critical</span>
-          <span className="flex items-center gap-1"><span className="h-2 w-2 rounded-full bg-warning" />High</span>
-          <span className="flex items-center gap-1"><span className="h-2 w-2 rounded-full bg-primary" />Low</span>
+          <span className="flex items-center gap-1">
+            <span className="h-2 w-2 rounded-full bg-critical" />
+            Critical
+          </span>
+          <span className="flex items-center gap-1">
+            <span className="h-2 w-2 rounded-full bg-warning" />
+            High
+          </span>
+          <span className="flex items-center gap-1">
+            <span className="h-2 w-2 rounded-full bg-primary" />
+            Low
+          </span>
         </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-[1fr_180px] gap-4 mt-4 flex-1 min-h-0">
         <div className="relative rounded-xl bg-[oklch(0.97_0.005_247)] border border-border overflow-hidden dark:bg-[oklch(0.18_0.01_260)]">
-          <ComposableMap
-            projectionConfig={{ scale: 145 }}
-            className="w-full h-full outline-none"
-          >
+          <ComposableMap projectionConfig={{ scale: 145 }} className="w-full h-full outline-none">
             <Geographies geography={geoUrl}>
               {({ geographies }) =>
                 geographies.map((geo) => (
@@ -78,16 +84,32 @@ export function GeoThreatMap({ data }: GeoThreatMapProps) {
               if (!o.x || !o.y) return null;
               const c = intensityColor[o.intensity];
               const r = 3 + Math.min(6, o.threats / 50);
-              
+
               return (
                 <Marker key={i} coordinates={[o.x, o.y]}>
                   {/* Glowing effect */}
                   <circle r={r * 2.5} fill={c} opacity="0.2">
-                    <animate attributeName="r" values={`${r * 2};${r * 3.5};${r * 2}`} dur="2s" repeatCount="indefinite" />
-                    <animate attributeName="opacity" values="0.3;0;0.3" dur="2s" repeatCount="indefinite" />
+                    <animate
+                      attributeName="r"
+                      values={`${r * 2};${r * 3.5};${r * 2}`}
+                      dur="2s"
+                      repeatCount="indefinite"
+                    />
+                    <animate
+                      attributeName="opacity"
+                      values="0.3;0;0.3"
+                      dur="2s"
+                      repeatCount="indefinite"
+                    />
                   </circle>
                   {/* Core dot */}
-                  <circle r={r} fill={c} stroke="currentColor" strokeWidth="1" className="text-card" />
+                  <circle
+                    r={r}
+                    fill={c}
+                    stroke="currentColor"
+                    strokeWidth="1"
+                    className="text-card"
+                  />
                 </Marker>
               );
             })}
@@ -104,16 +126,25 @@ export function GeoThreatMap({ data }: GeoThreatMapProps) {
               className="flex items-center justify-between px-2.5 py-2 rounded-lg hover:bg-muted/60 transition cursor-pointer"
             >
               <div className="flex items-center gap-2 min-w-0">
-                <span className="text-[10px] font-mono font-semibold text-muted-foreground w-6">{o.code}</span>
+                <span className="text-[10px] font-mono font-semibold text-muted-foreground w-6">
+                  {o.code}
+                </span>
                 <span className="text-[12.5px] text-foreground truncate">{o.country}</span>
               </div>
-              <span className={cn("text-[10px] font-semibold px-1.5 py-0.5 rounded-md", intensityLabel[o.intensity])}>
+              <span
+                className={cn(
+                  "text-[10px] font-semibold px-1.5 py-0.5 rounded-md",
+                  intensityLabel[o.intensity],
+                )}
+              >
                 {o.threats}
               </span>
             </div>
           ))}
           {geoOrigins.length === 0 && (
-             <div className="text-[11px] text-muted-foreground pt-4 text-center">No threats active</div>
+            <div className="text-[11px] text-muted-foreground pt-4 text-center">
+              No threats active
+            </div>
           )}
         </div>
       </div>

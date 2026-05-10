@@ -1,6 +1,16 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
-import { Bell, Shield, Users, Key, Database, Sparkles, Send, CheckCircle2, XCircle } from "lucide-react";
+import {
+  Bell,
+  Shield,
+  Users,
+  Key,
+  Database,
+  Sparkles,
+  Send,
+  CheckCircle2,
+  XCircle,
+} from "lucide-react";
 import { PageShell } from "@/components/sentinel/PageShell";
 import { ApiKeyPanel } from "@/components/sentinel/ApiKeyPanel";
 import { cn } from "@/lib/utils";
@@ -59,7 +69,10 @@ function SettingsPage() {
     mfaRequired: true,
   });
   const [testAlertLoading, setTestAlertLoading] = useState(false);
-  const [testAlertResult, setTestAlertResult] = useState<{ success: boolean; message: string } | null>(null);
+  const [testAlertResult, setTestAlertResult] = useState<{
+    success: boolean;
+    message: string;
+  } | null>(null);
 
   const update = (k: keyof typeof toggles) => (v: boolean) => setToggles((p) => ({ ...p, [k]: v }));
 
@@ -91,26 +104,55 @@ function SettingsPage() {
     }
   };
 
-  const settingItems: Record<string, { label: string; sub: string; key: keyof typeof toggles }[]> = {
-    general: [
-      { label: "Real-time monitoring", sub: "Stream events from all connected sources.", key: "realtime" },
-      { label: "Sentivoy AI triage", sub: "Let AI auto-classify low-confidence alerts.", key: "aiTriage" },
-      { label: "Weekly executive report", sub: "Email summary every Monday at 8am.", key: "weeklyReport" },
-    ],
-    detection: [
-      { label: "Auto-block hostile IPs", sub: "Push offending IPs to edge firewall.", key: "autoBlock" },
-      { label: "Real-time monitoring", sub: "Stream events from all connected sources.", key: "realtime" },
-    ],
-    notifications: [
-      { label: "Weekly executive report", sub: "Email summary every Monday at 8am.", key: "weeklyReport" },
-    ],
-    members: [
-      { label: "Require MFA for all members", sub: "Enforced on next login.", key: "mfaRequired" },
-      { label: "SSO enabled (Okta)", sub: "Members sign in via SSO.", key: "sso" },
-    ],
-    api: [],
-    data: [],
-  };
+  const settingItems: Record<string, { label: string; sub: string; key: keyof typeof toggles }[]> =
+    {
+      general: [
+        {
+          label: "Real-time monitoring",
+          sub: "Stream events from all connected sources.",
+          key: "realtime",
+        },
+        {
+          label: "Sentivoy AI triage",
+          sub: "Let AI auto-classify low-confidence alerts.",
+          key: "aiTriage",
+        },
+        {
+          label: "Weekly executive report",
+          sub: "Email summary every Monday at 8am.",
+          key: "weeklyReport",
+        },
+      ],
+      detection: [
+        {
+          label: "Auto-block hostile IPs",
+          sub: "Push offending IPs to edge firewall.",
+          key: "autoBlock",
+        },
+        {
+          label: "Real-time monitoring",
+          sub: "Stream events from all connected sources.",
+          key: "realtime",
+        },
+      ],
+      notifications: [
+        {
+          label: "Weekly executive report",
+          sub: "Email summary every Monday at 8am.",
+          key: "weeklyReport",
+        },
+      ],
+      members: [
+        {
+          label: "Require MFA for all members",
+          sub: "Enforced on next login.",
+          key: "mfaRequired",
+        },
+        { label: "SSO enabled (Okta)", sub: "Members sign in via SSO.", key: "sso" },
+      ],
+      api: [],
+      data: [],
+    };
 
   // Workspace data from real sources
   const totalLogs = dashboardData?.metrics?.logs ?? 0;
@@ -129,7 +171,9 @@ function SettingsPage() {
                 onClick={() => setActive(s.id)}
                 className={cn(
                   "w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-[13px] font-medium transition",
-                  active === s.id ? "bg-primary-soft text-primary" : "text-muted-foreground hover:text-foreground hover:bg-muted",
+                  active === s.id
+                    ? "bg-primary-soft text-primary"
+                    : "text-muted-foreground hover:text-foreground hover:bg-muted",
                 )}
               >
                 <Icon className="h-4 w-4" />
@@ -145,14 +189,19 @@ function SettingsPage() {
           ) : active === "data" ? (
             <div className="bg-card border border-border rounded-2xl p-5 shadow-[var(--shadow-soft)]">
               <div className="text-[15px] font-semibold text-foreground">Data Retention</div>
-              <div className="text-xs text-muted-foreground mt-0.5">How long Sentivoy keeps your logs</div>
+              <div className="text-xs text-muted-foreground mt-0.5">
+                How long Sentivoy keeps your logs
+              </div>
               <div className="mt-5 space-y-4">
                 {[
                   { label: "Raw logs", value: "30 days" },
                   { label: "Anomaly events", value: "180 days" },
                   { label: "Incidents & post-mortems", value: "Forever" },
                 ].map((r) => (
-                  <div key={r.label} className="flex items-center justify-between border-b border-border pb-3 last:border-0">
+                  <div
+                    key={r.label}
+                    className="flex items-center justify-between border-b border-border pb-3 last:border-0"
+                  >
                     <div>
                       <div className="text-[13.5px] font-medium text-foreground">{r.label}</div>
                     </div>
@@ -179,14 +228,18 @@ function SettingsPage() {
                   </div>
                 ))}
                 {(settingItems[active] ?? []).length === 0 && (
-                  <div className="p-8 text-center text-sm text-muted-foreground">Nothing to configure here.</div>
+                  <div className="p-8 text-center text-sm text-muted-foreground">
+                    Nothing to configure here.
+                  </div>
                 )}
               </div>
 
               {/* Email Alert Test Section — only on notifications tab */}
               {active === "notifications" && (
                 <div className="bg-card border border-border rounded-2xl p-5 shadow-[var(--shadow-soft)]">
-                  <div className="text-[15px] font-semibold text-foreground">Email Alert Testing</div>
+                  <div className="text-[15px] font-semibold text-foreground">
+                    Email Alert Testing
+                  </div>
                   <div className="text-xs text-muted-foreground mt-0.5">
                     Send a test critical alert email to verify your Resend integration
                   </div>
@@ -196,7 +249,7 @@ function SettingsPage() {
                       disabled={testAlertLoading}
                       className={cn(
                         "inline-flex items-center gap-2 h-9 px-4 rounded-lg text-[13px] font-semibold transition",
-                        "bg-primary text-white hover:bg-primary/90 disabled:opacity-50"
+                        "bg-primary text-white hover:bg-primary/90 disabled:opacity-50",
                       )}
                     >
                       {testAlertLoading ? (
@@ -207,10 +260,12 @@ function SettingsPage() {
                       {testAlertLoading ? "Sending..." : "Send test alert"}
                     </button>
                     {testAlertResult && (
-                      <div className={cn(
-                        "flex items-center gap-1.5 text-[12px] font-medium",
-                        testAlertResult.success ? "text-green-500" : "text-destructive"
-                      )}>
+                      <div
+                        className={cn(
+                          "flex items-center gap-1.5 text-[12px] font-medium",
+                          testAlertResult.success ? "text-green-500" : "text-destructive",
+                        )}
+                      >
                         {testAlertResult.success ? (
                           <CheckCircle2 className="h-3.5 w-3.5" />
                         ) : (
@@ -221,7 +276,8 @@ function SettingsPage() {
                     )}
                   </div>
                   <div className="mt-3 text-[11px] text-muted-foreground">
-                    This sends a simulated critical alert to your registered email address via Resend.
+                    This sends a simulated critical alert to your registered email address via
+                    Resend.
                   </div>
                 </div>
               )}
@@ -244,11 +300,15 @@ function SettingsPage() {
               </div>
               <div>
                 <div className="text-muted-foreground">Active alerts</div>
-                <div className="text-[15px] font-semibold text-foreground tabular-nums">{totalAlerts}</div>
+                <div className="text-[15px] font-semibold text-foreground tabular-nums">
+                  {totalAlerts}
+                </div>
               </div>
               <div>
                 <div className="text-muted-foreground">Anomalies</div>
-                <div className="text-[15px] font-semibold text-foreground tabular-nums">{dashboardData?.metrics?.anomalies ?? 0}</div>
+                <div className="text-[15px] font-semibold text-foreground tabular-nums">
+                  {dashboardData?.metrics?.anomalies ?? 0}
+                </div>
               </div>
             </div>
           </div>
@@ -257,4 +317,3 @@ function SettingsPage() {
     </PageShell>
   );
 }
-

@@ -8,12 +8,13 @@ from app.pipeline.detector import detect_anomaly
 from app.agent.decision_engine import evaluate_anomaly
 import datetime
 
+
 def test_pipeline_execution():
     """Ensure the pipeline logic runs without throwing exceptions on mock data."""
     log = LogEntry(
         user_id="test_user",
         ip_address="127.0.0.1",
-        timestamp=datetime.datetime.utcnow(),
+        timestamp=datetime.datetime.now(datetime.UTC),
         event_type="login",
         status="success"
     )
@@ -23,7 +24,7 @@ def test_pipeline_execution():
     assert features.log_id == "mock_id"
     
     # 2. Anomaly Detection
-    score, is_anomaly, severity = detect_anomaly(features)
+    score, is_anomaly, severity, _details = detect_anomaly(features)
     assert isinstance(score, float)
     
     # 3. Agent Evaluation

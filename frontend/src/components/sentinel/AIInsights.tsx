@@ -12,7 +12,9 @@ export function AIInsights() {
         <div>
           <div className="text-[14px] font-semibold text-foreground flex items-center gap-1.5">
             Sentivoy AI
-            <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-md bg-primary-soft text-primary">BETA</span>
+            <span className="text-[9px] font-semibold px-1.5 py-0.5 rounded-md bg-primary-soft text-primary">
+              BETA
+            </span>
           </div>
           <div className="text-[10.5px] text-muted-foreground">Insight stream • live</div>
         </div>
